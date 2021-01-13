@@ -416,7 +416,7 @@ test &lt;- rf_data[ind==2,]</code></pre>
 </div>
 <div id="running-random-forest-rf" class="section level2">
 <h2>Running Random Forest (RF)</h2>
-<p>Setting a seed value is important to make the random selection reproducible. mtry parameter (No. of variables tried at each split) is set to default which is 1/3 of the number of independent variable. Mean squared residuals will give you an estimated of error (lower the better), whereas % Var explained can be used as a pseudo-R2 value (higher the better). But, one should keep an eye out for overfitting.</p>
+<p>Setting a seed value is important to make the random selection reproducible. mtry parameter (No. of variables tried at each split) is set to default which is 1/3 of the number of independent variable. Mean of squared residuals will give you an estimated of error (lower the better), whereas % Var explained can be used as a pseudo-R2 value (higher the better). But, one should keep an eye out for overfitting.</p>
 <pre class="r"><code>set.seed(4444)
 rf &lt;- randomForest(Sulfide~., data=train, #here Sulfide is the dependent variable and the rest of the variables are independent variables
                    ntree = 300, #number of trees will depend on the error plot
@@ -447,7 +447,7 @@ write.csv(p1,paste0(&quot;training&quot;,x,y,z,&quot;.csv&quot;))</code></pre>
 </div>
 <div id="predicting-the-dependent-variable-in-the-validation-set-using-generated-rf-model-this-is-the-step-where-external-dataset-can-be-used-for-prediction" class="section level2">
 <h2>Predicting the dependent variable in the validation set using generated RF model (this is the step where external dataset can be used for prediction)</h2>
-<p>Using the generated RF model to predict response variable for the validation dataset (30% randomly picked before) and saving the prediction. If you want to predict the response varaible of an external dataset, you should store the dataset in test dataframe. For external dataset, splitting in 70:30 ratio is not always necessary, rather training with the total available data will be the best.</p>
+<p>Using the generated RF model to predict response variable for the validation dataset (30% randomly picked before) and saving the prediction. If you want to predict the response varaible of an external dataset, you should store the external dataset in test dataframe. For external dataset, splitting in 70:30 ratio is not always necessary, rather training with the total available data will be the best.</p>
 <pre class="r"><code>p2 &lt;- predict(rf, test)
 write.csv(p2,paste0(&quot;validation&quot;,x,y,z,&quot;.csv&quot;))</code></pre>
 </div>
@@ -553,7 +553,7 @@ summary(fit)</code></pre>
 </div>
 <div id="assessing-important-variables" class="section level2">
 <h2>Assessing important variables</h2>
-<p>Variables important for predicting the response/dependent variable can be evaluated. %IncMSE is an informative measure for finding out importance of an variable. %IncMSE indicates the increase of the mean squared error when given independent variable is randomly permuted. The higher the value, the more important the variable is.</p>
+<p>Variables important for predicting the response/dependent variable can be evaluated. %IncMSE is an informative measure for finding out importance of a variable. %IncMSE indicates the increase of the mean squared error when given independent variable is randomly permuted. The higher the value, the more important the variable is.</p>
 <pre class="r"><code>#plotting top 10 variable which are important for decision making in decision making tree
 
 varImpPlot(rf,
